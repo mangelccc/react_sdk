@@ -1,11 +1,12 @@
-import React from 'react';
-import { usarContextoChat } from '../../../contextos/ProveedorChat.jsx';
-import ContenedorError from '../../../contenedores/ContenedorError.jsx';
 /**
  * Componente para mostrar errores de forma elegante
  * Muestra mensajes de error con opción de cerrar
  * Autor: Miguel Ángel
  */
+
+import React from 'react';
+import { usarContextoChat } from '../../../contextos/ProveedorChat.jsx';
+import ContenedorError from '../../../contenedores/ContenedorError.jsx';
 
 const ErrorDisplay = () => {
 

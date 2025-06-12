@@ -8,14 +8,6 @@ import React from 'react';
 import { usarContextoChat } from '../../../contextos/ProveedorChat.jsx';
 import Cabecera from '../../../contenedores/Cabecera.jsx';
 
-/**
- * Componente CabeceraChat - Cabecera con título y controles
- * @param {Object} props - Props del componente
- * @param {string} props.titulo - Título del chat actual
- * @param {number} props.totalChats - Total de chats disponibles
- * @param {boolean} props.conectado - Estado de conexión
- * @returns {JSX.Element} - Cabecera renderizada
- */
 const CabeceraChat = () => {
   const {
     obtenerEstadisticas,

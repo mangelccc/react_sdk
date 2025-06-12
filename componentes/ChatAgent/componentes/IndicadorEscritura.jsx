@@ -1,15 +1,12 @@
-import React from 'react';
-import ContenedorIndicadorEscritura from '../../../contenedores/ContenedorIndicadorEscritura.jsx';
 /**
  * Componente indicador de que el agente está escribiendo una respuesta
  * Muestra una animación de puntos para indicar actividad
  * Autor: Miguel Ángel
  */
 
-/**
- * Componente IndicadorEscritura - Muestra animación de escritura
- * @returns {JSX.Element} - Indicador de escritura animado
- */
+import React from 'react';
+import ContenedorIndicadorEscritura from '../../../contenedores/ContenedorIndicadorEscritura.jsx';
+
 const IndicadorEscritura = () => {
   return (
     <ContenedorIndicadorEscritura>

@@ -1,20 +1,13 @@
-import React from 'react';
-import { usarContextoChat } from '../../../contextos/ProveedorChat.jsx';
-import ContenedorEntradaMensaje from '../../../contenedores/ContenedorEntradaMensaje.jsx';
 /**
  * Componente para el área de entrada de mensajes
  * Maneja el input de texto y el botón de envío
  * Autor: Miguel Ángel
  */
 
-/**
- * Componente EntradaMensaje - Área de input para escribir mensajes
- * @param {Object} props - Props del componente
- * @param {Function} props.alEnviarMensaje - Función a ejecutar al enviar mensaje
- * @param {boolean} props.deshabilitado - Si el input está deshabilitado
- * @param {string} props.placeholder - Texto placeholder del input
- * @returns {JSX.Element} - Área de entrada renderizada
- */
+import React from 'react';
+import { usarContextoChat } from '../../../contextos/ProveedorChat.jsx';
+import ContenedorEntradaMensaje from '../../../contenedores/ContenedorEntradaMensaje.jsx';
+
 const EntradaMensaje = () => {
 
   const {
