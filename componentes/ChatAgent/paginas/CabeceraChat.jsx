@@ -6,31 +6,31 @@
 
 import React from 'react';
 import { usarContextoChat } from '../../../contextos/ProveedorChat.jsx';
-import "./CabeceraChat.css";
+import Cabecera from '../../../contenedores/Cabecera.jsx';
 
 /**
  * Componente CabeceraChat - Cabecera con título y controles
  * @param {Object} props - Props del componente
  * @param {string} props.titulo - Título del chat actual
- * @param {Function} props.alAbrirSidebar - Función para abrir/cerrar sidebar
  * @param {number} props.totalChats - Total de chats disponibles
  * @param {boolean} props.conectado - Estado de conexión
  * @returns {JSX.Element} - Cabecera renderizada
  */
-const CabeceraChat = ({ 
-  alAbrirSidebar, 
-  conectado = true 
-}) => {
+const CabeceraChat = () => {
   const {
     obtenerEstadisticas,
-    chatActual
+    chatActual,
+    manejarAperturaSidebar,
+    error
   } = usarContextoChat();
+
+  let conectado = !error; // Determina si está conectado según el error
 
     const estadisticas = obtenerEstadisticas() || 0;
     const totalChats = estadisticas.totalChats || 0;
     const titulo = chatActual?.titulo || "Agent Chat";
   return (
-    <header className="cabeceraChat">
+    <Cabecera>
       <div className="cabeceraChat__contenedor">
         
         {/* Logo y título */}
@@ -66,7 +66,7 @@ const CabeceraChat = ({
         {/* Controles */}
         <div className="cabeceraChat__controles">
           <button
-            onClick={alAbrirSidebar}
+            onClick={() => manejarAperturaSidebar()}
             className="cabeceraChat__botonMenu"
             aria-label="Abrir panel de conversaciones"
           >
@@ -95,7 +95,7 @@ const CabeceraChat = ({
           </button>
         </div>
       </div>
-    </header>
+    </Cabecera>
   );
 };
 

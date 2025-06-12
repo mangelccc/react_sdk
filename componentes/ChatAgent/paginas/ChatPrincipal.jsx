@@ -6,12 +6,15 @@
 
 import React, { useState } from 'react';
 import { usarContextoChat } from '../../../contextos/ProveedorChat.jsx';
-import CabeceraChat from '../componentes/CabeceraChat.jsx';
+import Cabecera from './CabeceraChat.jsx';
 import ListaMensajes from '../componentes/ListaMensajes.jsx';
 import EntradaMensaje from '../componentes/EntradaMensaje.jsx';
 import SidebarChats from '../componentes/SidebarChats.jsx';
 import ErrorDisplay from '../componentes/ErrorDisplay.jsx';
-import "./ChatPrincipal.css";
+import Footer from './Footer.jsx';
+import ContenedorChatPrincipal from '../../../contenedores/ContenedorChatPrincipal.jsx'
+import ContenidoChat from '../../../contenedores/ContenidoChat.jsx';
+
 
 /**
  * Componente principal de la aplicación de chat
@@ -19,83 +22,25 @@ import "./ChatPrincipal.css";
  */
 const ChatPrincipal = () => {
 
-  // Contexto del chat
   const {
-    chats,
-    chatActual,
-    cargando,
-    error,
-    estaEscribiendo,
-    crearChat,
-    limpiarError,
+    error
   } = usarContextoChat();
 
-
-  const [sidebarAbierto, setSidebarAbierto] = useState(false);
-
-  const manejarNuevoChat = () => {
-    try {
-      crearChat();
-      setSidebarAbierto(false);
-      limpiarError();
-    } catch (error) {
-      console.error("❌ Error al crear nuevo chat:", error);
-    }
-  };
-
-  /**
-   * Maneja la apertura/cierre del sidebar
-   */
-  const manejarAperturaSidebar = () => {
-    setSidebarAbierto(!sidebarAbierto);
-  };
-
   return (
-    <div className="chatPrincipal">
-      
-      {/* Cabecera del chat */}
-      <CabeceraChat
-        titulo={chatActual?.titulo || "Agent Chat"}
-        alAbrirSidebar={manejarAperturaSidebar}
-        conectado={!error}
-      />
+    <ContenedorChatPrincipal>
+      <Cabecera />
+      <ContenidoChat>
+        {error && (
+          <ErrorDisplay />
+        )}
+        <ListaMensajes />
+        <EntradaMensaje />
+      </ContenidoChat>
 
-      {/* Contenido principal */}
-      <main className="chatPrincipal__contenido">
-        {error && (<ErrorDisplay />)}
+      <SidebarChats />
 
-        {/* Área de mensajes */}
-        <div className="chatPrincipal__mensajes">
-          <ListaMensajes
-            mensajes={chatActual?.mensajes || []}
-            estaEscribiendo={estaEscribiendo}
-          />
-        </div>
-
-        {/* Área de entrada de mensajes */}
-        <div className="chatPrincipal__entrada">
-          <EntradaMensaje />
-        </div>
-      </main>
-
-      {/* Panel lateral de chats */}
-      <SidebarChats
-        estaAbierto={sidebarAbierto}
-        alCerrar={() => setSidebarAbierto(false)}
-        chats={chats}
-        chatActual={chatActual}
-        alCrearNuevoChat={manejarNuevoChat}
-        cargando={cargando}
-      />
-
-      {/* Pie de página con información del desarrollador */}
-      <footer className="chatPrincipal__pie">
-        <p>
-          Desarrollado por <strong>Miguel Ángel Grimal Lopez</strong> - 
-          Chat Agent v1.0
-        </p>
-      </footer>
-    </div>
+      <Footer />
+    </ContenedorChatPrincipal>
   );
 };
 

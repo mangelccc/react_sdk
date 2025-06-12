@@ -4,7 +4,7 @@
  * Autor: Miguel Ángel
  */
 
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useCallback } from 'react';
 import useChat from '../hooks/useChat.js';
 import { enviarMensajeAlAgente } from '../bibliotecas/chatApi.js';
 import { crearMensaje, agregarMensajeAChat, formatearFecha, obtenerEstadisticasChat } from '../bibliotecas/chatUtils.js';
@@ -348,23 +348,25 @@ const ProveedorChat = ({ children }) => {
   */
 
   const [sidebarAbierto, setSidebarAbierto] = useState(false);
-  
-    const manejarNuevoChat = () => {
-      try {
-        crearChat();
-        setSidebarAbierto(false);
-        limpiarError();
-      } catch (error) {
-        console.error("❌ Error al crear nuevo chat:", error);
-      }
-    };
-  
-    /**
-     * Maneja la apertura/cierre del sidebar
-     */
-    const manejarAperturaSidebar = () => {
-      setSidebarAbierto(!sidebarAbierto);
-    };
+
+  // ✅ 2. Agregar estas funciones (donde tienes las otras funciones)
+  const manejarNuevoChat = () => {
+    try {
+      crearChat();
+      setSidebarAbierto(false);
+      limpiarError();
+    } catch (error) {
+      console.error("❌ Error al crear nuevo chat:", error);
+    }
+  };
+
+  const manejarAperturaSidebar = useCallback(() => {
+    setSidebarAbierto(prev => !prev); 
+  }, []);
+
+  const cerrarSidebar = useCallback(() => {
+    setSidebarAbierto(false);
+  }, []);
 
   // Objeto con todos los valores y funciones a exportar
   const valoresContexto = {
@@ -401,6 +403,12 @@ const ProveedorChat = ({ children }) => {
     // Funciones de manejo de chat
     manejarEliminacionChat,
     manejarSeleccionChat,
+
+    // Funciones de sidebar
+    sidebarAbierto,
+    cerrarSidebar,
+    manejarNuevoChat,
+    manejarAperturaSidebar,
   };
 
   return (

@@ -1,29 +1,23 @@
 import React from 'react';
 import { usarContextoChat } from '../../../contextos/ProveedorChat.jsx';
-import "./ErrorDisplay.css";
+import ContenedorError from '../../../contenedores/ContenedorError.jsx';
 /**
  * Componente para mostrar errores de forma elegante
  * Muestra mensajes de error con opción de cerrar
  * Autor: Miguel Ángel
  */
 
-/**
- * Componente ErrorDisplay - Muestra errores de forma elegante
- * @param {Object} props - Props del componente
- * @param {string} props.mensaje - Mensaje de error a mostrar
- * @param {Function} props.alCerrar - Función para cerrar el error
- * @param {string} props.tipo - Tipo de error (error, advertencia, info)
- * @returns {JSX.Element} - Componente de error renderizado
- */
-const ErrorDisplay = ({ tipo = 'error' }) => {
+const ErrorDisplay = () => {
 
   // Contexto del chat
   const {
     error,
-    limpiarError,
+    limpiarError
   } = usarContextoChat();
   
   if (!error) return null;
+
+  let tipo = 'error'; //Demomento, solo errores.
 
   const obtenerIcono = () => {
     switch (tipo) {
@@ -49,7 +43,7 @@ const ErrorDisplay = ({ tipo = 'error' }) => {
   };
 
   return (
-    <div className={`errorDisplay errorDisplay--${tipo}`}>
+    <ContenedorError t={tipo}>
       <div className="errorDisplay__contenido">
         <div className="errorDisplay__icono">
           {obtenerIcono()}
@@ -69,7 +63,7 @@ const ErrorDisplay = ({ tipo = 'error' }) => {
           </svg>
         </button>
       </div>
-    </div>
+    </ContenedorError>
   );
 };
 

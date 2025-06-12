@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css';
 
-const AppContenedor = ({children}) => {
+const ContenedorApp = ({children}) => {
   return (
     <div className="app">
       {children}
@@ -9,4 +9,4 @@ const AppContenedor = ({children}) => {
   )
 }
 
-export default AppContenedor
+export default ContenedorApp

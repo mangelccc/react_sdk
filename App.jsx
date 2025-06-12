@@ -7,7 +7,7 @@
 import React from 'react';
 import ProveedorChat from './contextos/ProveedorChat.jsx';
 import ChatPrincipal from './componentes/ChatAgent/paginas/ChatPrincipal.jsx';
-import ContenedorApp from './contenedores/AppContenedor.jsx';
+import ContenedorApp from './contenedores/ContenedorApp.jsx';
 
 /**
  * Componente App - Raíz de la aplicación

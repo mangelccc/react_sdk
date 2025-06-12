@@ -6,14 +6,8 @@
 
 import React from 'react';
 import { formatearHora } from '../../../bibliotecas/chatUtils.js';
-import "./Mensaje.css";
+import ContenedorMensaje from '../../../contenedores/ContenedorMensaje.jsx';
 
-/**
- * Componente Mensaje - Renderiza un mensaje individual
- * @param {Object} props - Props del componente
- * @param {Object} props.mensaje - Objeto mensaje con contenido y metadata
- * @returns {JSX.Element} - Elemento del mensaje renderizado
- */
 const Mensaje = ({ mensaje }) => {
   // Validación de props
   if (!mensaje || !mensaje.contenido) {
@@ -24,7 +18,7 @@ const Mensaje = ({ mensaje }) => {
   const { contenido, timestamp, esUsuario } = mensaje;
 
   return (
-    <div className={`mensaje ${esUsuario ? 'mensaje--usuario' : 'mensaje--agente'}`}>
+    <ContenedorMensaje bool={esUsuario}>
       <div className="mensaje__globo">
         {/* Contenido del mensaje */}
         <p className="mensaje__contenido">
@@ -36,7 +30,7 @@ const Mensaje = ({ mensaje }) => {
           {formatearHora(timestamp)}
         </span>
       </div>
-    </div>
+    </ContenedorMensaje>
   );
 };
 
