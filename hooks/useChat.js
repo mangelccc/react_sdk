@@ -129,40 +129,43 @@ const useChat = () => {
    * @param {Object} mensaje - Mensaje a agregar
    * @returns {Object} - Chat actualizado
    */
-  const agregarMensaje = useCallback(async (mensaje) => {
-    try {
-      limpiarError();
-      
-      if (!chatActual) {
-        throw new Error("No hay chat activo para agregar mensaje");
-      }
-
-      console.log("📝 Agregando mensaje:", {
-        tipo: mensaje.esUsuario ? 'USUARIO' : 'AGENTE',
-        contenido: mensaje.contenido.substring(0, 50) + '...',
-        chatId: chatActual.id,
-        mensajesAnteriores: chatActual.mensajes.length
-      });
-
-      const chatActualizado = agregarMensajeAChat(chatActual, mensaje);
-      
-      // Actualizar título si es el primer mensaje del usuario
-      if (chatActual.mensajes.length === 0 && mensaje.esUsuario) {
-        const chatConTitulo = actualizarTituloChat(chatActualizado, mensaje.contenido);
-        setChatActual(chatConTitulo);
-        console.log("🏷️ Título del chat actualizado:", chatConTitulo.titulo);
-        return chatConTitulo;
-      }
-      
-      setChatActual(chatActualizado);
-      console.log("✅ Mensaje agregado. Total mensajes:", chatActualizado.mensajes.length);
-      return chatActualizado;
-    } catch (error) {
-      console.error("❌ Error al agregar mensaje:", error);
-      setError("No se pudo agregar el mensaje");
-      throw error;
+  const agregarMensaje = useCallback(async (mensaje, chatEspecifico = null) => {
+  try {
+    limpiarError();
+    
+    // 🔥 USAR CHAT ESPECÍFICO O CHAT ACTUAL
+    const chatParaUsar = chatEspecifico || chatActual;
+    
+    if (!chatParaUsar) {
+      throw new Error("No hay chat activo para agregar mensaje");
     }
-  }, [chatActual, limpiarError]);
+
+    console.log("📝 Agregando mensaje:", {
+      tipo: mensaje.esUsuario ? 'USUARIO' : 'AGENTE',
+      contenido: mensaje.contenido.substring(0, 50) + '...',
+      chatId: chatParaUsar.id,
+      mensajesAnteriores: chatParaUsar.mensajes.length
+    });
+
+    const chatActualizado = agregarMensajeAChat(chatParaUsar, mensaje);
+    
+    // Actualizar título si es el primer mensaje del usuario
+    if (chatParaUsar.mensajes.length === 0 && mensaje.esUsuario) {
+      const chatConTitulo = actualizarTituloChat(chatActualizado, mensaje.contenido);
+      setChatActual(chatConTitulo);
+      console.log("🏷️ Título del chat actualizado:", chatConTitulo.titulo);
+      return chatConTitulo;
+    }
+    
+    setChatActual(chatActualizado);
+    console.log("✅ Mensaje agregado. Total mensajes:", chatActualizado.mensajes.length);
+    return chatActualizado;
+  } catch (error) {
+    console.error("❌ Error al agregar mensaje:", error);
+    setError("No se pudo agregar el mensaje");
+    throw error;
+  }
+}, [chatActual, limpiarError]);
 
   /**
    * Selecciona un chat como actual

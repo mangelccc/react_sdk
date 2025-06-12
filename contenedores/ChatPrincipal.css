@@ -21,7 +21,18 @@
 
 .chatPrincipal__mensajes {
   flex: 1;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Ocultar scrollbar completamente */
+.chatPrincipal__mensajes::-webkit-scrollbar {
+  display: none;
+}
+
+.chatPrincipal__mensajes {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .chatPrincipal__entrada {

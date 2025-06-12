@@ -47,19 +47,37 @@ const ProveedorChat = ({ children }) => {
    * @param {string} contenidoMensaje - Contenido del mensaje a enviar
    * @returns {Promise<void>}
    */
+
+  const asegurarChatActivo = async () => {
+    if (chatActual) {
+      return chatActual;
+    }
+
+    console.log("📝 Creando nuevo chat automáticamente...");
+    const nuevoChat = await crearChat();
+
+    // Seleccionar inmediatamente el chat creado
+    seleccionarChat(nuevoChat);
+
+    console.log("✅ Chat creado y seleccionado:", nuevoChat.id);
+    return nuevoChat;
+  };
+
   const enviarMensaje = async (contenidoMensaje) => {
     try {
       limpiarError();
 
-      // Verificar que hay un chat activo o crear uno nuevo
+      // 🔥 ASEGURAR CHAT ACTIVO
       let chatTrabajo = chatActual;
       if (!chatTrabajo) {
-        chatTrabajo = crearChat();
+        console.log("📝 Creando nuevo chat automáticamente...");
+        chatTrabajo = crearChat(); // Sin await, ya que no es async
+        console.log("✅ Chat creado:", chatTrabajo.id);
       }
 
-      // Crear y agregar mensaje del usuario
+      // 🔥 PASAR EL CHAT ESPECÍFICO a agregarMensaje
       const mensajeUsuario = crearMensaje(contenidoMensaje, true);
-      const chatConMensajeUsuario = await agregarMensaje(mensajeUsuario);
+      const chatConMensajeUsuario = await agregarMensaje(mensajeUsuario, chatTrabajo);
 
       // 🔥 GUARDAR INMEDIATAMENTE el mensaje del usuario
       if (configuracion.autoGuardar && chatConMensajeUsuario) {
@@ -73,11 +91,8 @@ const ProveedorChat = ({ children }) => {
       try {
         // Obtener respuesta del agente
         const respuestaAgente = await enviarMensajeAlAgente(contenidoMensaje);
-
-        // Crear mensaje del agente
         const mensajeAgente = crearMensaje(respuestaAgente, false);
 
-        // 🔥 USAR EL CHAT CON MENSAJE USUARIO como base para agregar el del agente
         console.log("🔄 Agregando respuesta del agente al chat que tiene:", chatConMensajeUsuario.mensajes.length, "mensajes");
 
         // Agregar respuesta del agente AL CHAT QUE YA TIENE EL MENSAJE DEL USUARIO
@@ -104,8 +119,6 @@ const ProveedorChat = ({ children }) => {
         );
 
         const chatConError = agregarMensajeAChat(chatConMensajeUsuario, mensajeError);
-
-        // Usar seleccionarChat para actualizar el estado
         seleccionarChat(chatConError);
 
         // Guardar chat con mensaje de error
@@ -260,18 +273,29 @@ const ProveedorChat = ({ children }) => {
 
       if (resultado.isConfirmed) {
         // Mostrar loading mientras se elimina
+        // Mostrar loading mientras se elimina
         Swal.fire({
           title: 'Eliminando...',
           text: 'Por favor espera',
           allowOutsideClick: false,
           allowEscapeKey: false,
-          showConfirmButton: false,
+          showConfirmButton: true,
+          confirmButtonText: 'Cargando...',
+          confirmButtonColor: configuracionSwal.confirmButtonColor,
           background: configuracionSwal.background,
           color: configuracionSwal.color,
-          didOpen: () => {
+          customClass: {
+            popup: 'swal-popup-custom',
+            confirmButton: 'swal-confirm-button'
+          },
+          preConfirm: () => {
+            return false; // Prevenir que se cierre al hacer clic
+          },
+          willOpen: () => {
+            // Mostrar loading en el botón
             Swal.showLoading();
           }
-        });
+        });;
 
         await manejarEliminarChat(chatId);
 
@@ -350,18 +374,126 @@ const ProveedorChat = ({ children }) => {
   const [sidebarAbierto, setSidebarAbierto] = useState(false);
 
   // ✅ 2. Agregar estas funciones (donde tienes las otras funciones)
-  const manejarNuevoChat = () => {
-    try {
-      crearChat();
-      setSidebarAbierto(false);
-      limpiarError();
-    } catch (error) {
-      console.error("❌ Error al crear nuevo chat:", error);
-    }
-  };
+  const manejarNuevoChat = async () => {
+  try {
+    // Mostrar loading mientras se crea
+    Swal.fire({
+      title: 'Creando nueva conversación...',
+      html: `
+        <div style="display: flex; align-items: center; justify-content: center; margin: 20px 0;">
+          <div style="
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            animation: spin 1s linear infinite;
+            margin-right: 15px;
+          "></div>
+          <span>Preparando tu nuevo chat...</span>
+        </div>
+        <style>
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        </style>
+      `,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      showConfirmButton: false,
+      background: configuracionSwal.background,
+      color: configuracionSwal.color,
+      customClass: {
+        popup: 'swal-popup-custom',
+        htmlContainer: 'swal-content-custom'
+      }
+    });
+
+    // Crear el chat
+    const nuevoChat = crearChat();
+    
+    // Pequeño delay para que se vea el loading (opcional)
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    setSidebarAbierto(false);
+    limpiarError();
+
+    // Mostrar confirmación de éxito
+    await Swal.fire({
+      title: '¡Nueva conversación creada!',
+      html: `
+        <div style="text-align: center; margin: 15px 0;">
+          <p style="margin-bottom: 15px; color: #666; font-size: 16px;">
+            Tu nueva conversación está lista
+          </p>
+          <p style="color: #28a745; font-weight: 600; font-size: 14px;">
+            💬 Puedes empezar a escribir tu mensaje
+          </p>
+        </div>
+      `,
+      icon: 'success',
+      timer: 2500,
+      showConfirmButton: false,
+      background: configuracionSwal.background,
+      color: configuracionSwal.color,
+      iconColor: '#28a745',
+      customClass: {
+        popup: 'swal-popup-custom',
+        htmlContainer: 'swal-content-custom'
+      },
+      showClass: {
+        popup: 'animate__animated animate__fadeInUp animate__faster'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp animate__faster'
+      }
+    });
+
+    console.log("✅ Nuevo chat creado exitosamente:", nuevoChat.id);
+
+  } catch (error) {
+    console.error("❌ Error al crear nuevo chat:", error);
+
+    // Mostrar error con SweetAlert2
+    await Swal.fire({
+      title: 'Error al crear conversación',
+      html: `
+        <div style="text-align: center; margin: 15px 0;">
+          <p style="margin-bottom: 10px; color: #dc3545;">
+            No se pudo crear una nueva conversación
+          </p>
+          <p style="color: #666; font-size: 14px;">
+            Por favor, inténtalo de nuevo
+          </p>
+        </div>
+      `,
+      icon: 'error',
+      confirmButtonText: 'Reintentar',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      background: configuracionSwal.background,
+      color: configuracionSwal.color,
+      confirmButtonColor: configuracionSwal.confirmButtonColor,
+      cancelButtonColor: configuracionSwal.cancelButtonColor,
+      iconColor: configuracionSwal.iconColor,
+      customClass: {
+        popup: 'swal-popup-custom',
+        confirmButton: 'swal-confirm-button',
+        cancelButton: 'swal-cancel-button',
+        htmlContainer: 'swal-content-custom'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Reintentar crear el chat
+        manejarNuevoChat();
+      }
+    });
+  }
+};
 
   const manejarAperturaSidebar = useCallback(() => {
-    setSidebarAbierto(prev => !prev); 
+    setSidebarAbierto(prev => !prev);
   }, []);
 
   const cerrarSidebar = useCallback(() => {
