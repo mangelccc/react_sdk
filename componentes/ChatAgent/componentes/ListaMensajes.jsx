@@ -5,6 +5,7 @@
  */
 
 import React, { useEffect, useRef } from 'react';
+import { usarContextoChat } from '../../../contextos/ProveedorChat.jsx';
 import Mensaje from './Mensaje.jsx';
 import IndicadorEscritura from './IndicadorEscritura.jsx';
 import "./ListaMensajes.css";
@@ -16,8 +17,9 @@ import "./ListaMensajes.css";
  * @param {boolean} props.estaEscribiendo - Si el agente está escribiendo
  * @returns {JSX.Element} - Lista de mensajes renderizada
  */
-const ListaMensajes = ({ mensajes = [], estaEscribiendo = false }) => {
+const ListaMensajes = ({ mensajes = []}) => {
   const finMensajesRef = useRef(null);
+  const { estaEscribiendo } = usarContextoChat();
 
   /**
    * Desplaza la vista al último mensaje

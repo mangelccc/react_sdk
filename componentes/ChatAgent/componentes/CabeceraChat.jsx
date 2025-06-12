@@ -18,15 +18,17 @@ import "./CabeceraChat.css";
  * @returns {JSX.Element} - Cabecera renderizada
  */
 const CabeceraChat = ({ 
-  titulo = "Agent Chat", 
   alAbrirSidebar, 
   conectado = true 
 }) => {
   const {
-    obtenerEstadisticas
+    obtenerEstadisticas,
+    chatActual
   } = usarContextoChat();
+
     const estadisticas = obtenerEstadisticas() || 0;
     const totalChats = estadisticas.totalChats || 0;
+    const titulo = chatActual?.titulo || "Agent Chat";
   return (
     <header className="cabeceraChat">
       <div className="cabeceraChat__contenedor">
