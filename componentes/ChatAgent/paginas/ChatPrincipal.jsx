@@ -28,7 +28,6 @@ const ChatPrincipal = () => {
     estaEscribiendo,
     crearChat,
     limpiarError,
-    obtenerEstadisticas
   } = usarContextoChat();
 
 
@@ -51,9 +50,6 @@ const ChatPrincipal = () => {
     setSidebarAbierto(!sidebarAbierto);
   };
 
-  // Obtener estadísticas para la cabecera
-  const estadisticas = obtenerEstadisticas();
-
   return (
     <div className="chatPrincipal">
       
@@ -61,20 +57,12 @@ const ChatPrincipal = () => {
       <CabeceraChat
         titulo={chatActual?.titulo || "Agent Chat"}
         alAbrirSidebar={manejarAperturaSidebar}
-        totalChats={estadisticas.totalChats}
         conectado={!error}
       />
 
       {/* Contenido principal */}
       <main className="chatPrincipal__contenido">
-        
-        {/* Mostrar errores si existen */}
-        {error && (
-          <ErrorDisplay 
-            mensaje={error}
-            alCerrar={limpiarError}
-          />
-        )}
+        {error && (<ErrorDisplay />)}
 
         {/* Área de mensajes */}
         <div className="chatPrincipal__mensajes">
@@ -86,14 +74,7 @@ const ChatPrincipal = () => {
 
         {/* Área de entrada de mensajes */}
         <div className="chatPrincipal__entrada">
-          <EntradaMensaje
-            deshabilitado={estaEscribiendo || cargando}
-            placeholder={
-              chatActual 
-                ? "Escribe tu mensaje..." 
-                : "Escribe un mensaje para comenzar..."
-            }
-          />
+          <EntradaMensaje />
         </div>
       </main>
 

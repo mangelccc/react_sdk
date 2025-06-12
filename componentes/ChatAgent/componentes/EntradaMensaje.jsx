@@ -15,17 +15,21 @@ import "./EntradaMensaje.css";
  * @param {string} props.placeholder - Texto placeholder del input
  * @returns {JSX.Element} - Área de entrada renderizada
  */
-const EntradaMensaje = ({ 
-  deshabilitado = false, 
-  placeholder = "Escribe tu mensaje..." 
-}) => {
+const EntradaMensaje = () => {
 
   const {
       mensajeInput,
       manejarEnvio,
       manejarTeclaPresionada,
-      manejarCambio
+      manejarCambio,
+      estaEscribiendo,
+      cargando,
+      chatActual
     } = usarContextoChat();
+    let deshabilitado = estaEscribiendo || cargando;
+    let placeholder = chatActual
+                ? "Escribe tu mensaje..." 
+                : "Escribe un mensaje para comenzar..."
 
   return (
     <div className="entradaMensaje">

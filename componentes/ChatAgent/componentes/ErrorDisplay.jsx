@@ -1,4 +1,5 @@
 import React from 'react';
+import { usarContextoChat } from '../../../contextos/ProveedorChat.jsx';
 import "./ErrorDisplay.css";
 /**
  * Componente para mostrar errores de forma elegante
@@ -14,13 +15,15 @@ import "./ErrorDisplay.css";
  * @param {string} props.tipo - Tipo de error (error, advertencia, info)
  * @returns {JSX.Element} - Componente de error renderizado
  */
-const ErrorDisplay = ({ 
-  mensaje, 
-  alCerrar, 
-  tipo = 'error' 
-}) => {
+const ErrorDisplay = ({ tipo = 'error' }) => {
+
+  // Contexto del chat
+  const {
+    error,
+    limpiarError,
+  } = usarContextoChat();
   
-  if (!mensaje) return null;
+  if (!error) return null;
 
   const obtenerIcono = () => {
     switch (tipo) {
@@ -53,11 +56,11 @@ const ErrorDisplay = ({
         </div>
         
         <div className="errorDisplay__mensaje">
-          <p>{mensaje}</p>
+          <p>{error}</p>
         </div>
         
         <button
-          onClick={alCerrar}
+          onClick={limpiarError}
           className="errorDisplay__botonCerrar"
           aria-label="Cerrar error"
         >

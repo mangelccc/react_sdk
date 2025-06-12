@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { usarContextoChat } from '../../../contextos/ProveedorChat.jsx';
 import "./CabeceraChat.css";
 
 /**
@@ -19,10 +20,13 @@ import "./CabeceraChat.css";
 const CabeceraChat = ({ 
   titulo = "Agent Chat", 
   alAbrirSidebar, 
-  totalChats = 0,
   conectado = true 
 }) => {
-  
+  const {
+    obtenerEstadisticas
+  } = usarContextoChat();
+    const estadisticas = obtenerEstadisticas() || 0;
+    const totalChats = estadisticas.totalChats || 0;
   return (
     <header className="cabeceraChat">
       <div className="cabeceraChat__contenedor">
