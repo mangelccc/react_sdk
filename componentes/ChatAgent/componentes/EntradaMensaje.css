@@ -1,0 +1,108 @@
+/**
+ * Estilos para el componente EntradaMensaje
+ * Define la apariencia del área de entrada de mensajes
+ */
+
+.entradaMensaje {
+  background-color: white;
+  border-top: 1px solid #e2e8f0;
+  padding: 1rem;
+}
+
+.entradaMensaje__contenedor {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.entradaMensaje__inputContainer {
+  flex: 1;
+  position: relative;
+}
+
+.entradaMensaje__textarea {
+  width: 100%;
+  min-height: 48px;
+  max-height: 120px;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 1.5rem;
+  resize: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  background-color: #f8fafc;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.entradaMensaje__textarea:focus {
+  border-color: #667eea;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.entradaMensaje__textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #f1f5f9;
+}
+
+.entradaMensaje__textarea::placeholder {
+  color: #94a3b8;
+}
+
+.entradaMensaje__boton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.entradaMensaje__boton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.entradaMensaje__boton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.entradaMensaje__boton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.entradaMensaje__contador {
+  font-size: 0.75rem;
+  color: #64748b;
+  text-align: right;
+  margin-top: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .entradaMensaje {
+    padding: 0.75rem;
+  }
+  
+  .entradaMensaje__contenedor {
+    gap: 0.5rem;
+  }
+  
+  .entradaMensaje__textarea {
+    font-size: 1rem; /* iOS zoom fix */
+  }
+}

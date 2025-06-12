@@ -1,0 +1,161 @@
+/**
+ * Estilos para el componente CabeceraChat
+ * Define la apariencia de la cabecera del chat
+ */
+
+.cabeceraChat {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cabeceraChat__contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.cabeceraChat__logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cabeceraChat__icono {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+
+.cabeceraChat__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.cabeceraChat__titulo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.cabeceraChat__estado {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cabeceraChat__indicador {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: parpadear 2s infinite;
+}
+
+.cabeceraChat__indicador--conectado {
+  background-color: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+}
+
+.cabeceraChat__indicador--desconectado {
+  background-color: #ef4444;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+}
+
+.cabeceraChat__textoEstado {
+  font-size: 0.8rem;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+.cabeceraChat__controles {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cabeceraChat__botonMenu {
+  position: relative;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+}
+
+.cabeceraChat__botonMenu:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.cabeceraChat__botonMenu:active {
+  transform: translateY(0);
+}
+
+.cabeceraChat__badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: #ef4444;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.4rem;
+  border-radius: 10px;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+@keyframes parpadear {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cabeceraChat__contenedor {
+    padding: 0.75rem;
+  }
+  
+  .cabeceraChat__logo {
+    gap: 0.75rem;
+  }
+  
+  .cabeceraChat__icono {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .cabeceraChat__titulo {
+    font-size: 1.1rem;
+  }
+  
+  .cabeceraChat__textoEstado {
+    font-size: 0.75rem;
+  }
+}

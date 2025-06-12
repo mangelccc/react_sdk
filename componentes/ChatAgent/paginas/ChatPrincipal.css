@@ -1,0 +1,84 @@
+/**
+ * Estilos para el componente ChatPrincipal
+ * Define el layout principal de la aplicación de chat
+ */
+
+.chatPrincipal {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f8fafc;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.chatPrincipal__contenido {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.chatPrincipal__mensajes {
+  flex: 1;
+  overflow: hidden;
+}
+
+.chatPrincipal__entrada {
+  flex-shrink: 0;
+}
+
+.chatPrincipal__pie {
+  background-color: #f1f5f9;
+  border-top: 1px solid #e2e8f0;
+  padding: 0.75rem 1rem;
+  text-align: center;
+}
+
+.chatPrincipal__pie p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.chatPrincipal__pie strong {
+  color: #334155;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .chatPrincipal__pie {
+    padding: 0.5rem;
+  }
+  
+  .chatPrincipal__pie p {
+    font-size: 0.75rem;
+  }
+}
+
+/* Animaciones globales */
+@keyframes aparecerSuave {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Utilidades */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

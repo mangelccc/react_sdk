@@ -1,0 +1,111 @@
+/**
+ * Estilos para el componente ListaMensajes
+ * Define la apariencia del área de mensajes y el estado vacío
+ */
+
+.listaMensajes {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.listaMensajes__contenedor {
+  max-width: 100%;
+  margin: 0 auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estado vacío */
+.listaMensajes__vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex: 1;
+  min-height: 400px;
+  padding: 2rem;
+}
+
+.listaMensajes__iconoVacio {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-bottom: 1.5rem;
+  animation: pulsarIcono 2s infinite ease-in-out;
+}
+
+.listaMensajes__tituloVacio {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 0.5rem 0;
+}
+
+.listaMensajes__textoVacio {
+  font-size: 1rem;
+  color: #64748b;
+  margin: 0;
+  max-width: 300px;
+  line-height: 1.5;
+}
+
+@keyframes pulsarIcono {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Scrollbar personalizada */
+.listaMensajes::-webkit-scrollbar {
+  width: 6px;
+}
+
+.listaMensajes::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.listaMensajes::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.listaMensajes::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .listaMensajes {
+    padding: 0.75rem;
+  }
+  
+  .listaMensajes__vacio {
+    min-height: 300px;
+    padding: 1.5rem;
+  }
+  
+  .listaMensajes__iconoVacio {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+  }
+  
+  .listaMensajes__tituloVacio {
+    font-size: 1.25rem;
+  }
+  
+  .listaMensajes__textoVacio {
+    font-size: 0.9rem;
+  }
+}
