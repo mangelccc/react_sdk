@@ -7,7 +7,7 @@
 import React from 'react';
 import ProveedorChat from './contextos/ProveedorChat.jsx';
 import ChatPrincipal from './componentes/ChatAgent/paginas/ChatPrincipal.jsx';
-import './App.css';
+import ContenedorApp from './contenedores/AppContenedor.jsx';
 
 /**
  * Componente App - Raíz de la aplicación
@@ -15,11 +15,11 @@ import './App.css';
  */
 const App = () => {
   return (
-    <div className="app">
+    <ContenedorApp>
       <ProveedorChat>
         <ChatPrincipal />
       </ProveedorChat>
-    </div>
+    </ContenedorApp>
   );
 };
 

@@ -346,6 +346,26 @@ const ProveedorChat = ({ children }) => {
     }
   };
   */
+
+  const [sidebarAbierto, setSidebarAbierto] = useState(false);
+  
+    const manejarNuevoChat = () => {
+      try {
+        crearChat();
+        setSidebarAbierto(false);
+        limpiarError();
+      } catch (error) {
+        console.error("❌ Error al crear nuevo chat:", error);
+      }
+    };
+  
+    /**
+     * Maneja la apertura/cierre del sidebar
+     */
+    const manejarAperturaSidebar = () => {
+      setSidebarAbierto(!sidebarAbierto);
+    };
+
   // Objeto con todos los valores y funciones a exportar
   const valoresContexto = {
     // Estado

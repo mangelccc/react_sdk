@@ -18,8 +18,6 @@ import "./ChatPrincipal.css";
  * Coordina la interacción entre usuario y agente IA
  */
 const ChatPrincipal = () => {
-  // Estado local del componente
-  const [sidebarAbierto, setSidebarAbierto] = useState(false);
 
   // Contexto del chat
   const {
@@ -33,9 +31,9 @@ const ChatPrincipal = () => {
     obtenerEstadisticas
   } = usarContextoChat();
 
-  /**
-   * Maneja la creación de un nuevo chat
-   */
+
+  const [sidebarAbierto, setSidebarAbierto] = useState(false);
+
   const manejarNuevoChat = () => {
     try {
       crearChat();
@@ -49,7 +47,7 @@ const ChatPrincipal = () => {
   /**
    * Maneja la apertura/cierre del sidebar
    */
-  const manejarToggleSidebar = () => {
+  const manejarAperturaSidebar = () => {
     setSidebarAbierto(!sidebarAbierto);
   };
 
@@ -62,7 +60,7 @@ const ChatPrincipal = () => {
       {/* Cabecera del chat */}
       <CabeceraChat
         titulo={chatActual?.titulo || "Agent Chat"}
-        alAbrirSidebar={manejarToggleSidebar}
+        alAbrirSidebar={manejarAperturaSidebar}
         totalChats={estadisticas.totalChats}
         conectado={!error}
       />
