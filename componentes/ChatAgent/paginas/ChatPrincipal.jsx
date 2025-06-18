@@ -6,6 +6,7 @@
 
 import React, { useState } from 'react';
 import { usarContextoChat } from '../../../contextos/ProveedorChat.jsx';
+import { usarContextoSesion } from '../../../contextos/ProveedorSesion.jsx';
 import Cabecera from './CabeceraChat.jsx';
 import ListaMensajes from '../componentes/ListaMensajes.jsx';
 import EntradaMensaje from '../componentes/EntradaMensaje.jsx';
@@ -25,6 +26,10 @@ const ChatPrincipal = () => {
   const {
     error
   } = usarContextoChat();
+  const {
+    usuario
+  } = usarContextoSesion();
+  console.log('Usuario actual:', usuario);
 
   return (
     <ContenedorChatPrincipal>

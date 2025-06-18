@@ -6,6 +6,7 @@
 
 import React from 'react';
 import ProveedorChat from './contextos/ProveedorChat.jsx';
+import ProveedorSesion from './contextos/ProveedorSesion.jsx';
 import ChatPrincipal from './componentes/ChatAgent/paginas/ChatPrincipal.jsx';
 import ContenedorApp from './contenedores/ContenedorApp.jsx';
 
@@ -15,11 +16,13 @@ import ContenedorApp from './contenedores/ContenedorApp.jsx';
  */
 const App = () => {
   return (
-    <ContenedorApp>
-      <ProveedorChat>
-        <ChatPrincipal />
-      </ProveedorChat>
-    </ContenedorApp>
+    <ProveedorSesion>
+      <ContenedorApp>
+        <ProveedorChat>
+          <ChatPrincipal />
+        </ProveedorChat>
+      </ContenedorApp>
+    </ProveedorSesion>
   );
 };
 
