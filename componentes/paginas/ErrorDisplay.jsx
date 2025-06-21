@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { usarContextoChat } from '../../contextos/ProveedorChat.jsx';
+import usarContextoChat from '../../hooks/usarContextoChat.js';
 import ContenedorError from '../../contenedores/ContenedorError.jsx';
 
 const ErrorDisplay = () => {

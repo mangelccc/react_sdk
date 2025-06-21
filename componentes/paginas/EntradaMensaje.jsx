@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { usarContextoChat } from '../../contextos/ProveedorChat.jsx';
+import usarContextoChat from '../../hooks/usarContextoChat.js';
 import ContenedorEntradaMensaje from '../../contenedores/ContenedorEntradaMensaje.jsx';
 
 const EntradaMensaje = () => {

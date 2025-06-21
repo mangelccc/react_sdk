@@ -5,7 +5,7 @@
  */
 
 import React, { useEffect, useRef } from 'react';
-import { usarContextoChat } from '../../contextos/ProveedorChat.jsx';
+import usarContextoChat from '../../hooks/usarContextoChat.js';
 import Mensaje from './Mensaje.jsx';
 import IndicadorEscritura from './IndicadorEscritura.jsx';
 import ContenedorListaMensajes from '../../contenedores/ContenedorListaMensajes.jsx';

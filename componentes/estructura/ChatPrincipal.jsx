@@ -4,9 +4,9 @@
  * Autor: Miguel Ángel
  */
 
-import React, { useState } from 'react';
-import { usarContextoChat } from '../../contextos/ProveedorChat.jsx';
-import { usarContextoSesion } from '../../contextos/ProveedorSesion.jsx';
+import React from 'react';
+import usarContextoChat from '../../hooks/usarContextoChat.js';
+import usarContextoSesion from '../../hooks/usarContextoSesion.js';
 import Cabecera from './CabeceraChat.jsx';
 import ListaMensajes from '../paginas/ListaMensajes.jsx';
 import EntradaMensaje from '../paginas/EntradaMensaje.jsx';
