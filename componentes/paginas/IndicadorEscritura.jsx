@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import ContenedorIndicadorEscritura from '../../../contenedores/ContenedorIndicadorEscritura.jsx';
+import ContenedorIndicadorEscritura from '../../contenedores/ContenedorIndicadorEscritura.jsx';
 
 const IndicadorEscritura = () => {
   return (

@@ -5,16 +5,16 @@
  */
 
 import React, { useState } from 'react';
-import { usarContextoChat } from '../../../contextos/ProveedorChat.jsx';
-import { usarContextoSesion } from '../../../contextos/ProveedorSesion.jsx';
+import { usarContextoChat } from '../../contextos/ProveedorChat.jsx';
+import { usarContextoSesion } from '../../contextos/ProveedorSesion.jsx';
 import Cabecera from './CabeceraChat.jsx';
-import ListaMensajes from '../componentes/ListaMensajes.jsx';
-import EntradaMensaje from '../componentes/EntradaMensaje.jsx';
-import SidebarChats from '../componentes/SidebarChats.jsx';
-import ErrorDisplay from '../componentes/ErrorDisplay.jsx';
+import ListaMensajes from '../paginas/ListaMensajes.jsx';
+import EntradaMensaje from '../paginas/EntradaMensaje.jsx';
+import SidebarChats from '../paginas/SidebarChats.jsx';
+import ErrorDisplay from '../paginas/ErrorDisplay.jsx';
 import Footer from './Footer.jsx';
-import ContenedorChatPrincipal from '../../../contenedores/ContenedorChatPrincipal.jsx'
-import ContenidoChat from '../../../contenedores/ContenidoChat.jsx';
+import ContenedorChatPrincipal from '../../contenedores/ContenedorChatPrincipal.jsx'
+import ContenidoChat from '../../contenedores/ContenidoChat.jsx';
 
 
 /**

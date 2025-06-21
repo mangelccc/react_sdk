@@ -5,10 +5,10 @@
  */
 
 import React, { useEffect, useRef } from 'react';
-import { usarContextoChat } from '../../../contextos/ProveedorChat.jsx';
+import { usarContextoChat } from '../../contextos/ProveedorChat.jsx';
 import Mensaje from './Mensaje.jsx';
 import IndicadorEscritura from './IndicadorEscritura.jsx';
-import ContenedorListaMensajes from '../../../contenedores/ContenedorListaMensajes.jsx';
+import ContenedorListaMensajes from '../../contenedores/ContenedorListaMensajes.jsx';
 
 
 // Componente ListaMensajes - Renderiza la lista completa de mensajes

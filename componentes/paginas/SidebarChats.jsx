@@ -5,9 +5,9 @@
  */
 
 import React from 'react';
-import { formatearFecha, obtenerEstadisticasChat } from '../../../bibliotecas/chatUtils.js';
-import { usarContextoChat } from '../../../contextos/ProveedorChat.jsx';
-import ContenedorSidebar from '../../../contenedores/contenedorSidebar.jsx';
+import { formatearFecha, obtenerEstadisticasChat } from '../../bibliotecas/chatUtils.js';
+import { usarContextoChat } from '../../contextos/ProveedorChat.jsx';
+import ContenedorSidebar from '../../contenedores/contenedorSidebar.jsx';
 
 const SidebarChats = () => {
 

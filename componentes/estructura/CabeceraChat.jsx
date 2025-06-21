@@ -5,8 +5,8 @@
  */
 
 import React from 'react';
-import { usarContextoChat } from '../../../contextos/ProveedorChat.jsx';
-import Cabecera from '../../../contenedores/Cabecera.jsx';
+import { usarContextoChat } from '../../contextos/ProveedorChat.jsx';
+import Cabecera from '../../contenedores/Cabecera.jsx';
 
 const CabeceraChat = () => {
   const {

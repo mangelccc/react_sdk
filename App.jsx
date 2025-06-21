@@ -7,7 +7,7 @@
 import React from 'react';
 import ProveedorChat from './contextos/ProveedorChat.jsx';
 import ProveedorSesion from './contextos/ProveedorSesion.jsx';
-import ChatPrincipal from './componentes/ChatAgent/paginas/ChatPrincipal.jsx';
+import ChatPrincipal from './componentes/estructura/ChatPrincipal.jsx';
 import ContenedorApp from './contenedores/ContenedorApp.jsx';
 
 /**

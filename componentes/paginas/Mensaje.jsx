@@ -5,8 +5,8 @@
  */
 
 import React from 'react';
-import { formatearHora } from '../../../bibliotecas/chatUtils.js';
-import ContenedorMensaje from '../../../contenedores/ContenedorMensaje.jsx';
+import { formatearHora } from '../../bibliotecas/chatUtils.js';
+import ContenedorMensaje from '../../contenedores/ContenedorMensaje.jsx';
 
 const Mensaje = ({ mensaje }) => {
   // Validación de props
