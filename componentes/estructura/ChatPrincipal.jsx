@@ -22,20 +22,17 @@ import ContenidoChat from '../../contenedores/ContenidoChat.jsx';
  * Coordina la interacción entre usuario y agente IA
  */
 const ChatPrincipal = () => {
-  const [mostrarLogin, setMostrarLogin] = useState(true); // Cambia a false para ocultar por defecto
 
   const {
     error
   } = usarContextoChat();
   const {
-    usuario
+    usuario,
+    mostrarLogin
   } = usarContextoSesion();
   
   console.log('Usuario actual:', usuario);
 
-  const cerrarLogin = () => {
-    setMostrarLogin(false);
-  };
 
   return (
     <ContenedorChatPrincipal>
@@ -52,17 +49,7 @@ const ChatPrincipal = () => {
 
       {/* Popup de login */}
       {mostrarLogin && (
-        <div className="login-popup-overlay" onClick={cerrarLogin}>
-          <div className="login-popup-container" onClick={(e) => e.stopPropagation()}>
-            <button 
-              className="login-popup-close" 
-              onClick={cerrarLogin}
-            >
-              ✕
-            </button>
-            <InicioSesion onLogin={cerrarLogin} />
-          </div>
-        </div>
+        <InicioSesion />
       )}
 
       <Footer />

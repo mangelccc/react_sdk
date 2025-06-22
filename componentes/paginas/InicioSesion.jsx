@@ -4,21 +4,24 @@
  * Autor: Miguel Ángel
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import ContenedorInicioSesion from '../../contenedores/ContenedorInicioSesion.jsx';
 import usarContextoSesion from '../../hooks/usarContextoSesion.js';
 
-const InicioSesion = ({ onLogin }) => {
+const InicioSesion = () => {
   const { 
     actualizarDato, 
     validarFormulario, 
     datosFormulario, 
     errores, 
     manejarLoginGoogle, 
-    manejarLoginApple 
+    manejarLoginApple,
+    cerrarLogin
 } = usarContextoSesion();
 
   return (
+    <div className="login-popup-overlay">
+    <div className="login-popup-container" onClick={(e) => e.stopPropagation()}>
     <ContenedorInicioSesion>
       <form className="inicioSesion__form">
         {/* Campo Email */}
@@ -89,7 +92,7 @@ const InicioSesion = ({ onLogin }) => {
           onClick={(evento) => {
             if (validarFormulario(evento)) {
               console.log("Envío datos al servidor...", datosFormulario);
-              if (onLogin) onLogin(); // Cerrar popup
+              if (cerrarLogin) cerrarLogin(); // Cerrar popup
             }
           }}
         />
@@ -176,6 +179,9 @@ const InicioSesion = ({ onLogin }) => {
         </div>
       </form>
     </ContenedorInicioSesion>
+    </div>
+    </div>
+
   );
 };
 

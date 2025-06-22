@@ -154,15 +154,19 @@ const ProveedorSesion = ({ children }) => {
   const manejarLoginGoogle = () => {
     console.log('Iniciar sesión con Google');
     // Lógica para Google OAuth
-    if (onLogin) onLogin(); // Cerrar popup
+    if (cerrarLogin) cerrarLogin(); // Cerrar popup
   };
 
   const manejarLoginApple = () => {
     console.log('Iniciar sesión con Apple');
     // Lógica para Apple OAuth
-    if (onLogin) onLogin(); // Cerrar popup
+    if (cerrarLogin) cerrarLogin(); // Cerrar popup
   };
 
+  const cerrarLogin = () => {
+    setMostrarLogin(false);
+  };
+ const [mostrarLogin, setMostrarLogin] = useState(true); 
   const valoresContexto = {
       usuario,
       registrarUsuario,
@@ -172,6 +176,8 @@ const ProveedorSesion = ({ children }) => {
       errores,
       manejarLoginGoogle,
       manejarLoginApple,
+      cerrarLogin,
+      mostrarLogin,
   };
 
   return (
