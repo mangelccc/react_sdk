@@ -7,40 +7,119 @@
 import React, { useState } from 'react';
 import ContenedorInicioSesion from '../../contenedores/ContenedorInicioSesion.jsx';
 
-const InicioSesion = () => {
-  const [formData, setFormData] = useState({
+const InicioSesion = ({ onLogin }) => {
+  // Crear un estado inicial con valores por defecto
+  const valoresIniciales = {
     email: '',
     password: '',
     rememberMe: false
-  });
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Datos del formulario:', formData);
-    // Aquí iría la lógica de autenticación
+  const erroresIniciales = [];
+  // Estado para los valores del formulario
+  const [datosFormulario, setDatosFormulario] = useState(valoresIniciales);
+  const [errores, setErrores] = useState(erroresIniciales);
+
+  // Función para actualizar el estado con los datos del evento
+  const actualizarDato = (evento) => {
+    // Se obtienen los datos necesarios del evento que lanza esta función: el input
+    const { name, value, type, checked } = evento.target;
+    // Se asigna al estado
+    setDatosFormulario({ 
+      ...datosFormulario, 
+      [name]: type === 'checkbox' ? checked : value 
+    });
   };
 
-  const handleGoogleLogin = () => {
+  // Función que valida el valor de un input
+  const validarDato = (elemento) => {
+    // Desestructuración del objeto target
+    const { name, value } = elemento;
+    // Variable con los errores de cada elemento
+    let erroresElemento = [];
+    
+    // Campo email
+    if (name === "email") {
+      // Se comprueba si tiene algo escrito
+      if (!value.length) {
+        erroresElemento = [
+          ...erroresElemento,
+          `El campo ${name} debe tener un valor.`,
+        ];
+      }
+      // Se comprueba si cumple los requisitos de email
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        erroresElemento = [
+          ...erroresElemento,
+          `El email debe tener un formato válido.`,
+        ];
+      }
+    }
+    
+    // Campo password
+    if (name === "password") {
+      // Se comprueba si tiene algo escrito
+      if (!value.length) {
+        erroresElemento = [
+          ...erroresElemento,
+          `El campo ${name} debe tener un valor.`,
+        ];
+      }
+      // Se comprueba si cumple los requisitos
+      if (value.length < 6) {
+        erroresElemento = [
+          ...erroresElemento,
+          `La contraseña debe tener al menos 6 caracteres.`,
+        ];
+      }
+    }
+    
+    // Se devuelve el listado de errores (o ninguno)
+    return erroresElemento;
+  };
+
+  // Función para validar el formulario
+  const validarFormulario = (evento) => {
+    // Se accede al elemento <form> que contiene el listado de todos sus elementos (elements)
+    const formulario = evento.target.parentNode;
+    // Array vacío para guardar todos los errores del formulario
+    let erroresListado = [];
+    // Se recorre el formulario comprobando cada elemento
+    for (var i = 0; i < formulario.elements.length - 1; i++) {
+      // Solo validar inputs de texto y email
+      if (formulario.elements[i].type === 'email' || formulario.elements[i].type === 'password') {
+        // Validar dato devuelve un array con los errores de ese elemento
+        let erroresElemento = validarDato(formulario.elements[i]);
+        // Se comprueba si hay errores o no (aplicando un estilo)
+        erroresElemento.length !== 0
+          ? formulario.elements[i].classList.add("error")
+          : formulario.elements[i].classList.remove("error");
+        // Se añaden los errores (si existen) de cada elemento a erroresListado
+        erroresListado = [...erroresListado, ...erroresElemento];
+      }
+    }
+    // Se cambia el valor el estado por los errores producidos
+    setErrores(erroresListado);
+    // Se devuelve un booleano para poder realizar una acción tras la comprobación
+    // Si no hay errores se devuelve true
+    return erroresListado.length === 0;
+  };
+
+  const manejarLoginGoogle = () => {
     console.log('Iniciar sesión con Google');
     // Lógica para Google OAuth
+    if (onLogin) onLogin(); // Cerrar popup
   };
 
-  const handleAppleLogin = () => {
+  const manejarLoginApple = () => {
     console.log('Iniciar sesión con Apple');
     // Lógica para Apple OAuth
+    if (onLogin) onLogin(); // Cerrar popup
   };
 
   return (
     <ContenedorInicioSesion>
-      <form className="inicioSesion__form" onSubmit={handleSubmit}>
+      <form className="inicioSesion__form">
         {/* Campo Email */}
         <div className="inicioSesion__flexColumn">
           <label className="inicioSesion__label">Email</label>
@@ -56,9 +135,10 @@ const InicioSesion = () => {
             className="inicioSesion__input" 
             type="email" 
             name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
+            value={datosFormulario.email}
+            onChange={(evento) => {
+              actualizarDato(evento);
+            }}
           />
         </div>
 
@@ -76,9 +156,10 @@ const InicioSesion = () => {
             className="inicioSesion__input" 
             type="password" 
             name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
+            value={datosFormulario.password}
+            onChange={(evento) => {
+              actualizarDato(evento);
+            }}
           />
         </div>
 
@@ -88,8 +169,10 @@ const InicioSesion = () => {
             <input 
               type="checkbox" 
               name="rememberMe"
-              checked={formData.rememberMe}
-              onChange={handleChange}
+              checked={datosFormulario.rememberMe}
+              onChange={(evento) => {
+                actualizarDato(evento);
+              }}
               className="inicioSesion__checkbox"
             />
             <label className="inicioSesion__checkboxLabel">Remember me</label>
@@ -98,9 +181,26 @@ const InicioSesion = () => {
         </div>
 
         {/* Botón de envío */}
-        <button type="submit" className="inicioSesion__buttonSubmit">
-          Sign In
-        </button>
+        <input
+          type='button'
+          value='Sign In'
+          className="inicioSesion__buttonSubmit"
+          onClick={(evento) => {
+            if (validarFormulario(evento)) {
+              console.log("Envío datos al servidor...", datosFormulario);
+              if (onLogin) onLogin(); // Cerrar popup
+            }
+          }}
+        />
+
+        {/* Control de errores */}
+        {errores.length > 0 && (
+          <div className="inicioSesion__errores">
+            {errores.map((error, index) => (
+              <p key={index} className="inicioSesion__error">{error}</p>
+            ))}
+          </div>
+        )}
 
         {/* Enlaces de registro */}
         <p className="inicioSesion__text">
@@ -115,7 +215,7 @@ const InicioSesion = () => {
           <button 
             type="button" 
             className="inicioSesion__oauthButton inicioSesion__googleButton"
-            onClick={handleGoogleLogin}
+            onClick={manejarLoginGoogle}
           >
             <svg 
               xmlSpace="preserve" 
@@ -148,7 +248,7 @@ const InicioSesion = () => {
           <button 
             type="button" 
             className="inicioSesion__oauthButton inicioSesion__appleButton"
-            onClick={handleAppleLogin}
+            onClick={manejarLoginApple}
           >
             <svg 
               xmlSpace="preserve" 

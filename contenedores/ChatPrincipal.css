@@ -58,6 +58,107 @@
   font-weight: 600;
 }
 
+/* ========== ESTILOS PARA EL POPUP DE LOGIN ========== */
+
+.login-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+
+.login-popup-container {
+  position: relative;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: popupAppear 0.3s ease-out;
+}
+
+.login-popup-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #f1f5f9;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  color: #64748b;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.login-popup-close:hover {
+  background: #e2e8f0;
+  color: #334155;
+  transform: scale(1.1);
+}
+
+/* Modificaciones al contenedor original para que funcione en popup */
+.login-popup-container .inicioSesion {
+  display: block;
+  align-items: unset;
+  justify-content: unset;
+  min-height: unset;
+  background: transparent;
+  padding: 0;
+}
+
+.login-popup-container .inicioSesion__form {
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+@keyframes popupAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Responsive para el popup */
+@media (max-width: 768px) {
+  .login-popup-overlay {
+    padding: 0.5rem;
+  }
+  
+  .login-popup-container {
+    max-height: 95vh;
+  }
+  
+  .login-popup-close {
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+}
+
+/* ========== ESTILOS ORIGINALES ========== */
+
 /* Responsive */
 @media (max-width: 768px) {
   .chatPrincipal__pie {
