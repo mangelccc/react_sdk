@@ -9,6 +9,7 @@ import ProveedorChat from './contextos/ProveedorChat.jsx';
 import ProveedorSesion from './contextos/ProveedorSesion.jsx';
 import ChatPrincipal from './componentes/estructura/ChatPrincipal.jsx';
 import ContenedorApp from './contenedores/ContenedorApp.jsx';
+import InicioSesion from './componentes/paginas/InicioSesion.jsx';
 
 /**
  * Componente App - Raíz de la aplicación

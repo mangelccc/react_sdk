@@ -66,20 +66,5 @@ const ProveedorSesion = ({ children }) => {
   );
 };
 
-/**
- * Hook para usar el contexto de sesión
- * @returns {Object} - Valores del contexto
- * @throws {Error} - Si se usa fuera del proveedor
- */
-const usarContextoSesion = () => {
-  const contexto = useContext(ContextoSesion);
-
-  if (!contexto) {
-    throw new Error('usarContextoSesion debe usarse dentro de ProveedorSesion');
-  }
-
-  return contexto;
-};
-
 export default ProveedorSesion;
-export { usarContextoSesion, ContextoSesion };
+export { ContextoSesion };
