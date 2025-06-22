@@ -167,6 +167,7 @@ const throttle = (func, limit) => {
   };
 };
 
+
 export {
   generarUuidAleatorio,
   generarNumeroAleatorio,
