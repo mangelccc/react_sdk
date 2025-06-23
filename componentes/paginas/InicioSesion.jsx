@@ -1,46 +1,38 @@
 /**
  * Componente de inicio de sesión y registro
  * Formulario para autenticación de usuarios con alternancia
- * Autor: Miguel Ángel
+ * Autor: Miguel Ángel - SÚPER LIMPIO usando solo el contexto
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import ContenedorInicioSesion from '../../contenedores/ContenedorInicioSesion.jsx';
 import usarContextoSesion from '../../hooks/usarContextoSesion.js';
 
 const InicioSesion = () => {
     const {
-        actualizarDato,
-        validarFormulario,
+        // ✅ ESTADOS DEL CONTEXTO
         datosFormulario,
         errores,
+        mostrarPopupLogin,
+        modoRegistro,
+        
+        // ✅ FUNCIONES DEL CONTEXTO
+        actualizarDato,
+        alternarModo,
+        manejarSubmit,
         manejarLoginGoogle,
         manejarLoginApple,
+        manejarLoginGitHub,
         cerrarLogin
     } = usarContextoSesion();
 
-    // Estado para alternar entre login y registro
-    const [modoRegistro, setModoRegistro] = useState(false);
-
-    const alternarModo = () => {
-        setModoRegistro(!modoRegistro);
-    };
-
-    const manejarSubmit = (evento) => {
-        if (validarFormulario(evento)) {
-            if (modoRegistro) {
-                console.log("Registrando usuario...", datosFormulario);
-                // Aquí irá la lógica de registro
-            } else {
-                console.log("Iniciando sesión...", datosFormulario);
-                // Aquí va la lógica de login
-            }
-            if (cerrarLogin) cerrarLogin();
-        }
-    };
-
     return (
-        <div className="login-popup-overlay">
+        <div 
+            className="login-popup-overlay" 
+            style={{ 
+                display: mostrarPopupLogin ? 'flex' : 'none' // ✅ Ahora se oculta automáticamente con SweetAlert2
+            }}
+        >
             <div className="login-popup-container" onClick={(e) => e.stopPropagation()}>
                 <ContenedorInicioSesion>
                     <form className="inicioSesion__form">
@@ -61,9 +53,7 @@ const InicioSesion = () => {
                                 type="email"
                                 name="email"
                                 value={datosFormulario.email}
-                                onChange={(evento) => {
-                                    actualizarDato(evento);
-                                }}
+                                onChange={actualizarDato}
                             />
                         </div>
 
@@ -75,9 +65,7 @@ const InicioSesion = () => {
                                         type="checkbox"
                                         name="rememberMe"
                                         checked={datosFormulario.rememberMe}
-                                        onChange={(evento) => {
-                                            actualizarDato(evento);
-                                        }}
+                                        onChange={actualizarDato}
                                         className="inicioSesion__checkbox"
                                     />
                                     <label className="inicioSesion__checkboxLabel">Recordarme</label>
@@ -94,9 +82,7 @@ const InicioSesion = () => {
                                         type="checkbox"
                                         name="aceptarTerminos"
                                         checked={datosFormulario.aceptarTerminos || false}
-                                        onChange={(evento) => {
-                                            actualizarDato(evento);
-                                        }}
+                                        onChange={actualizarDato}
                                         className="inicioSesion__checkbox"
                                     />
                                     <label className="inicioSesion__checkboxLabel">
@@ -199,10 +185,11 @@ const InicioSesion = () => {
                                 </svg>
                                 Apple
                             </button>
+                            
                             <button
                                 type="button"
                                 className="inicioSesion__oauthButton inicioSesion__githubButton"
-                                onClick={manejarLoginApple}
+                                onClick={manejarLoginGitHub}
                             >
                                 <svg
                                     viewBox="0 0 24 24"
